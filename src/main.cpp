@@ -1,16 +1,34 @@
 #include "raylib.h"
+#include <memory>
+#include "Project.h"
+#include "UIManager.h"
+#include "SnowEffect.h"
 
 int main() {
-    const int screenWidth = 1280;
-    const int screenHeight = 720;
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
 
     InitWindow(screenWidth, screenHeight, "particle vfx engine");
     SetTargetFPS(60);
 
+    Project project;
+    UIManager uiManager;
+
     while(!WindowShouldClose()) {
+        float dt = GetFrameTime();
+
+        for (auto& effect : project.activeEffects)
+            if(effect->isActive)
+                effect->Update(dt);
+
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawText("testing", 380, 340, 30, GREEN);
+
+        for (auto& effect : project.activeEffects)
+            if(effect->isActive)
+                effect->Draw();
+
+        uiManager.UpdateAndDraw(project);
         EndDrawing();
     }
 
