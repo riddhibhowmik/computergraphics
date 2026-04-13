@@ -7,6 +7,36 @@
 },
 {
   "directory": "C:/Users/bandr/Downloads/computergraphics/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include -g -std=gnu++17 -o CMakeFiles\\ParticleForge.dir\\src\\Project.cpp.obj -c C:\\Users\\bandr\\Downloads\\computergraphics\\src\\Project.cpp",
+  "file": "C:/Users/bandr/Downloads/computergraphics/src/Project.cpp",
+  "output": "C:/Users/bandr/Downloads/computergraphics/build/CMakeFiles/ParticleForge.dir/src/Project.cpp.obj"
+},
+{
+  "directory": "C:/Users/bandr/Downloads/computergraphics/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include -g -std=gnu++17 -o CMakeFiles\\ParticleForge.dir\\src\\SnowEffect.cpp.obj -c C:\\Users\\bandr\\Downloads\\computergraphics\\src\\SnowEffect.cpp",
+  "file": "C:/Users/bandr/Downloads/computergraphics/src/SnowEffect.cpp",
+  "output": "C:/Users/bandr/Downloads/computergraphics/build/CMakeFiles/ParticleForge.dir/src/SnowEffect.cpp.obj"
+},
+{
+  "directory": "C:/Users/bandr/Downloads/computergraphics/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include -g -std=gnu++17 -o CMakeFiles\\ParticleForge.dir\\src\\FireEffect.cpp.obj -c C:\\Users\\bandr\\Downloads\\computergraphics\\src\\FireEffect.cpp",
+  "file": "C:/Users/bandr/Downloads/computergraphics/src/FireEffect.cpp",
+  "output": "C:/Users/bandr/Downloads/computergraphics/build/CMakeFiles/ParticleForge.dir/src/FireEffect.cpp.obj"
+},
+{
+  "directory": "C:/Users/bandr/Downloads/computergraphics/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include -g -std=gnu++17 -o CMakeFiles\\ParticleForge.dir\\src\\SparkEffect.cpp.obj -c C:\\Users\\bandr\\Downloads\\computergraphics\\src\\SparkEffect.cpp",
+  "file": "C:/Users/bandr/Downloads/computergraphics/src/SparkEffect.cpp",
+  "output": "C:/Users/bandr/Downloads/computergraphics/build/CMakeFiles/ParticleForge.dir/src/SparkEffect.cpp.obj"
+},
+{
+  "directory": "C:/Users/bandr/Downloads/computergraphics/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include -g -std=gnu++17 -o CMakeFiles\\ParticleForge.dir\\src\\UIManager.cpp.obj -c C:\\Users\\bandr\\Downloads\\computergraphics\\src\\UIManager.cpp",
+  "file": "C:/Users/bandr/Downloads/computergraphics/src/UIManager.cpp",
+  "output": "C:/Users/bandr/Downloads/computergraphics/build/CMakeFiles/ParticleForge.dir/src/UIManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/bandr/Downloads/computergraphics/build",
   "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -isystem C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -o _deps\\raylib-build\\raylib\\CMakeFiles\\raylib.dir\\rcore.c.obj -c C:\\Users\\bandr\\Downloads\\computergraphics\\build\\_deps\\raylib-src\\src\\rcore.c",
   "file": "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/rcore.c",
   "output": "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.obj"

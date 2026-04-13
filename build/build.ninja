@@ -58,6 +58,51 @@ build CMakeFiles/ParticleForge.dir/src/main.cpp.obj: CXX_COMPILER__ParticleForge
   OBJECT_DIR = CMakeFiles\ParticleForge.dir
   OBJECT_FILE_DIR = CMakeFiles\ParticleForge.dir\src
 
+build CMakeFiles/ParticleForge.dir/src/Project.cpp.obj: CXX_COMPILER__ParticleForge_unscanned_Debug C$:/Users/bandr/Downloads/computergraphics/src/Project.cpp || cmake_object_order_depends_target_ParticleForge
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\ParticleForge.dir\src\Project.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include
+  OBJECT_DIR = CMakeFiles\ParticleForge.dir
+  OBJECT_FILE_DIR = CMakeFiles\ParticleForge.dir\src
+
+build CMakeFiles/ParticleForge.dir/src/SnowEffect.cpp.obj: CXX_COMPILER__ParticleForge_unscanned_Debug C$:/Users/bandr/Downloads/computergraphics/src/SnowEffect.cpp || cmake_object_order_depends_target_ParticleForge
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\ParticleForge.dir\src\SnowEffect.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include
+  OBJECT_DIR = CMakeFiles\ParticleForge.dir
+  OBJECT_FILE_DIR = CMakeFiles\ParticleForge.dir\src
+
+build CMakeFiles/ParticleForge.dir/src/FireEffect.cpp.obj: CXX_COMPILER__ParticleForge_unscanned_Debug C$:/Users/bandr/Downloads/computergraphics/src/FireEffect.cpp || cmake_object_order_depends_target_ParticleForge
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\ParticleForge.dir\src\FireEffect.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include
+  OBJECT_DIR = CMakeFiles\ParticleForge.dir
+  OBJECT_FILE_DIR = CMakeFiles\ParticleForge.dir\src
+
+build CMakeFiles/ParticleForge.dir/src/SparkEffect.cpp.obj: CXX_COMPILER__ParticleForge_unscanned_Debug C$:/Users/bandr/Downloads/computergraphics/src/SparkEffect.cpp || cmake_object_order_depends_target_ParticleForge
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\ParticleForge.dir\src\SparkEffect.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include
+  OBJECT_DIR = CMakeFiles\ParticleForge.dir
+  OBJECT_FILE_DIR = CMakeFiles\ParticleForge.dir\src
+
+build CMakeFiles/ParticleForge.dir/src/UIManager.cpp.obj: CXX_COMPILER__ParticleForge_unscanned_Debug C$:/Users/bandr/Downloads/computergraphics/src/UIManager.cpp || cmake_object_order_depends_target_ParticleForge
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\ParticleForge.dir\src\UIManager.cpp.obj.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src -IC:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src/src/external/glfw/include
+  OBJECT_DIR = CMakeFiles\ParticleForge.dir
+  OBJECT_FILE_DIR = CMakeFiles\ParticleForge.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ParticleForge
@@ -66,7 +111,7 @@ build CMakeFiles/ParticleForge.dir/src/main.cpp.obj: CXX_COMPILER__ParticleForge
 #############################################
 # Link the executable ParticleForge.exe
 
-build ParticleForge.exe: CXX_EXECUTABLE_LINKER__ParticleForge_Debug CMakeFiles/ParticleForge.dir/src/main.cpp.obj | _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a
+build ParticleForge.exe: CXX_EXECUTABLE_LINKER__ParticleForge_Debug CMakeFiles/ParticleForge.dir/src/main.cpp.obj CMakeFiles/ParticleForge.dir/src/Project.cpp.obj CMakeFiles/ParticleForge.dir/src/SnowEffect.cpp.obj CMakeFiles/ParticleForge.dir/src/FireEffect.cpp.obj CMakeFiles/ParticleForge.dir/src/SparkEffect.cpp.obj CMakeFiles/ParticleForge.dir/src/UIManager.cpp.obj | _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a
   CONFIG = Debug
   FLAGS = -g
   LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  -lopengl32  -lglu32  -lwinmm  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
