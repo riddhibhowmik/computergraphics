@@ -20,6 +20,8 @@ add_executable(${PROJECT_NAME}
 src/main.cpp
 src/Project.cpp
 src/SnowEffect.cpp
+src/FireEffect.cpp
+src/SparkEffect.cpp
 src/UIManager.cpp
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
