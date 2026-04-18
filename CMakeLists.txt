@@ -22,6 +22,8 @@ src/Project.cpp
 src/SnowEffect.cpp
 src/FireEffect.cpp
 src/SparkEffect.cpp
+src/NebulaEffect.cpp
+src/BlackHoleEffect.cpp
 src/UIManager.cpp
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)

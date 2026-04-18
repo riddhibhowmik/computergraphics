@@ -2,6 +2,8 @@
 #include "SnowEffect.h"
 #include "FireEffect.h"
 #include "SparkEffect.h"
+#include "NebulaEffect.h"
+#include "BlackHoleEffect.h"
 #include "Easings.h"
 #include <iostream>
 #include <sstream>
@@ -225,7 +227,17 @@ void UIManager::DrawSidebar(Project &currentProject)
         currentProject.AddEffect(std::make_shared<SparkEffect>());
         currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
     }
-    if (Button({1920 - 480 + 20, 250, 440, 40}, "+ Add custom script"))
+    if (Button({1920 - 480 + 20, 250, 440, 40}, "+ Add Nebula Effect"))
+    {
+        currentProject.AddEffect(std::make_shared<NebulaEffect>());
+        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+    }
+    if (Button({1920 - 480 + 20, 300, 440, 40}, "+ Add Black Hole Effect"))
+    {
+        currentProject.AddEffect(std::make_shared<BlackHoleEffect>());
+        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+    }
+    if (Button({1920 - 480 + 20, 350, 440, 40}, "+ Add custom script"))
     {
         // Placeholder for future script loading
     }
@@ -322,6 +334,34 @@ void UIManager::DrawSidebar(Project &currentProject)
             DrawText(TextFormat("active: %s", sparks->isActive ? "yes" : "no"), 1920 - 480 + 20, 440, 20, BLACK);
             if (Button({1920 - 480 + 200, 435, 80, 30}, "toggle"))
                 sparks->isActive = !sparks->isActive;
+        }
+        else if (effect->name == "Nebula") {
+            auto nebula = std::static_pointer_cast<NebulaEffect>(effect);
+            DrawText("nebula settings", 1920 - 480 + 20, 260, 20, BLACK);
+            // spawnrate slider, keep this one low cause nebula particles are bigegr and more expensive
+            nebula->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
+                                          TextFormat("spawn rate: %d", nebula->spawnRate), (float)nebula->spawnRate, 1.0f, 10.0f);
+            // drift slider
+            nebula->drift = Slider({1920 - 480 + 20, 380, 440, 20},
+                                TextFormat("drift: %.1f", nebula->drift), nebula->drift, 0.0f, 100.0f);
+            // toggle
+            DrawText(TextFormat("active: %s", nebula->isActive ? "yes" : "no"), 1920 - 480 + 20, 440, 20, BLACK);
+            if (Button({1920 - 480 + 200, 435, 80, 30}, "toggle"))
+                nebula->isActive = !nebula->isActive;
+        }
+        else if (effect->name == "Black Hole") {
+            auto blackHole = std::static_pointer_cast<BlackHoleEffect>(effect);
+            DrawText("black hole settings", 1920 - 480 + 20, 260, 20, BLACK);
+            // spawnrate slider
+            blackHole->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
+                                          TextFormat("spawn rate: %d", blackHole->spawnRate), (float)blackHole->spawnRate, 1.0f, 50.0f);
+            // pull slider
+            blackHole->pull = Slider({1920 - 480 + 20, 380, 440, 20},
+                                TextFormat("pull: %.0f", blackHole->pull), blackHole->pull, 100000.0f, 1500000.0f);
+            // toggle
+            DrawText(TextFormat("active: %s", blackHole->isActive ? "yes" : "no"), 1920 - 480 + 20, 440, 20, BLACK);
+            if (Button({1920 - 480 + 200, 435, 80, 30}, "toggle"))
+                blackHole->isActive = !blackHole->isActive;
         }
         else
         {

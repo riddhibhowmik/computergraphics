@@ -5,6 +5,8 @@
 #include "SnowEffect.h"
 #include "FireEffect.h"
 #include "SparkEffect.h"
+#include "NebulaEffect.h"
+#include "BlackHoleEffect.h"
 
 int main() {
     const int screenWidth = 1920;
@@ -19,6 +21,8 @@ int main() {
     project.AddEffect(std::make_shared<SnowEffect>());
     project.AddEffect(std::make_shared<FireEffect>());
     project.AddEffect(std::make_shared<SparkEffect>());
+    project.AddEffect(std::make_shared<NebulaEffect>());
+    project.AddEffect(std::make_shared<BlackHoleEffect>());
 
     while(!WindowShouldClose()) {
         float dt = GetFrameTime();
