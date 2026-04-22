@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <fstream>
 
 UIManager::UIManager()
 {
@@ -209,47 +210,110 @@ void UIManager::DrawSidebar(Project &currentProject)
     DrawRectangle(1920 - 480, 40, 480, 900, Fade(RAYWHITE, 0.95f));
     DrawRectangleLines(1920 - 480, 40, 480, 900, DARKGRAY);
 
-    DrawText("Usable Effects", 1920 - 480 + 20, 60, 24, BLACK);
-    DrawLine(1920 - 480 + 20, 90, 1920 - 20, 90, DARKGRAY);
+    if (promptingForScriptName) {
+        DrawText("Enter Custom Effect Name:", 1920 - 480 + 20, 60, 24, BLACK);
+        DrawRectangle(1920 - 480 + 20, 100, 440, 40, LIGHTGRAY);
+        DrawRectangleLines(1920 - 480 + 20, 100, 440, 40, DARKGRAY);
+        DrawText(customScriptNameBuffer.c_str(), 1920 - 480 + 30, 110, 20, BLACK);
+        
+        int key = GetCharPressed();
+        while (key > 0) {
+            if ((key >= 32) && (key <= 125)) {
+                customScriptNameBuffer += (char)key;
+            }
+            key = GetCharPressed();
+        }
+        if (IsKeyPressed(KEY_BACKSPACE) && !customScriptNameBuffer.empty()) {
+            customScriptNameBuffer.pop_back();
+        }
+        
+        if (Button({1920 - 480 + 20, 160, 200, 40}, "Create")) {
+            std::string hContent = "#pragma once\n#include \"Effect.h\"\n\nclass " + customScriptNameBuffer + " : public Effect {\npublic:\n    " + customScriptNameBuffer + "();\n    void Update(float dt) override;\n    void Draw() override;\n};\n";
+            std::string cppContent = "#include \"" + customScriptNameBuffer + ".h\"\n\n" + customScriptNameBuffer + "::" + customScriptNameBuffer + "() {\n    name = \"" + customScriptNameBuffer + "\";\n}\n\nvoid " + customScriptNameBuffer + "::Update(float dt) {\n    // TODO: Update logic\n}\n\nvoid " + customScriptNameBuffer + "::Draw() {\n    // TODO: Draw logic\n}\n";
+            
+            std::ofstream hFile("src/" + customScriptNameBuffer + ".h");
+            hFile << hContent;
+            hFile.close();
+            
+            std::ofstream cppFile("src/" + customScriptNameBuffer + ".cpp");
+            cppFile << cppContent;
+            cppFile.close();
+            
+            std::string cmd = "code src/" + customScriptNameBuffer + ".h src/" + customScriptNameBuffer + ".cpp";
+            system(cmd.c_str());
+            
+            promptingForScriptName = false;
+            customScriptNameBuffer = "";
+        }
+        if (Button({1920 - 480 + 240, 160, 200, 40}, "Cancel")) {
+            promptingForScriptName = false;
+            customScriptNameBuffer = "";
+        }
+        return;
+    }
 
-    if (Button({1920 - 480 + 20, 100, 440, 40}, "+ Add Snow Effect"))
-    {
-        currentProject.AddEffect(std::make_shared<SnowEffect>());
-        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
-    }
-    if (Button({1920 - 480 + 20, 150, 440, 40}, "+ Add Fire Effect"))
-    {
-        currentProject.AddEffect(std::make_shared<FireEffect>());
-        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
-    }
-    if (Button({1920 - 480 + 20, 200, 440, 40}, "+ Add Spark Effect"))
-    {
-        currentProject.AddEffect(std::make_shared<SparkEffect>());
-        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
-    }
-    if (Button({1920 - 480 + 20, 250, 440, 40}, "+ Add Nebula Effect"))
-    {
-        currentProject.AddEffect(std::make_shared<NebulaEffect>());
-        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
-    }
-    if (Button({1920 - 480 + 20, 300, 440, 40}, "+ Add Black Hole Effect"))
-    {
-        currentProject.AddEffect(std::make_shared<BlackHoleEffect>());
-        currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
-    }
-    if (Button({1920 - 480 + 20, 350, 440, 40}, "+ Add custom script"))
-    {
-        // Placeholder for future script loading
-    }
+    if (sidebarState == SidebarState::Selection) {
+        DrawText("Usable Effects", 1920 - 480 + 20, 60, 24, BLACK);
+        DrawLine(1920 - 480 + 20, 90, 1920 - 20, 90, DARKGRAY);
 
-    // Properties area
-    DrawLine(1920 - 480 + 20, 210, 1920 - 20, 210, DARKGRAY);
-    DrawText("Properties", 1920 - 480 + 20, 220, 24, BLACK);
+        if (Button({1920 - 480 + 20, 100, 440, 40}, "+ Add Snow Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<SnowEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 150, 440, 40}, "+ Add Fire Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<FireEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 200, 440, 40}, "+ Add Spark Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<SparkEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 250, 440, 40}, "+ Add Nebula Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<NebulaEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 300, 440, 40}, "+ Add Black Hole Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<BlackHoleEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 350, 440, 40}, "+ Add custom script"))
+        {
+            promptingForScriptName = true;
+            customScriptNameBuffer = "";
+        }
+    }
+    else if (sidebarState == SidebarState::Properties) {
+        if (Button({1920 - 480 + 20, 60, 100, 30}, "< Back")) {
+            sidebarState = SidebarState::Selection;
+            currentProject.selectedEffectIndex = -1;
+        }
+        if (Button({1920 - 480 + 360, 60, 100, 30}, "Delete")) {
+            if (currentProject.selectedEffectIndex >= 0 && currentProject.selectedEffectIndex < currentProject.activeEffects.size()) {
+                currentProject.activeEffects.erase(currentProject.activeEffects.begin() + currentProject.selectedEffectIndex);
+            }
+            sidebarState = SidebarState::Selection;
+            currentProject.selectedEffectIndex = -1;
+            return;
+        }
 
-    if (currentProject.selectedEffectIndex >= 0 && currentProject.selectedEffectIndex < currentProject.activeEffects.size())
-    {
-        auto effect = currentProject.activeEffects[currentProject.selectedEffectIndex];
-        DrawText(TextFormat("Editing: %s", effect->name.c_str()), 1920 - 480 + 20, 260, 20, DARKBLUE);
+        // Properties area
+        DrawLine(1920 - 480 + 20, 100, 1920 - 20, 100, DARKGRAY);
+        DrawText("Properties", 1920 - 480 + 20, 110, 24, BLACK);
+
+        if (currentProject.selectedEffectIndex >= 0 && currentProject.selectedEffectIndex < currentProject.activeEffects.size())
+        {
+            auto effect = currentProject.activeEffects[currentProject.selectedEffectIndex];
+            DrawText(TextFormat("Editing: %s", effect->name.c_str()), 1920 - 480 + 20, 150, 20, DARKBLUE);
 
         // Use dynamic cast to edit SnowEffect specifically
         if (auto snow = std::dynamic_pointer_cast<SnowEffect>(effect))
@@ -368,6 +432,7 @@ void UIManager::DrawSidebar(Project &currentProject)
             DrawText("No effect selected.", 1920 - 480 + 20, 260, 20, GRAY);
         }
     }
+    }
 }
 
 void UIManager::DrawTimeline(Project &currentProject)
@@ -395,6 +460,7 @@ void UIManager::DrawTimeline(Project &currentProject)
         if (Button(blockBounds, currentProject.activeEffects[i]->name.c_str()))
         {
             currentProject.selectedEffectIndex = i;
+            sidebarState = SidebarState::Properties;
         }
 
         xOffset += 160.0f;

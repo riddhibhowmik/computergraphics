@@ -13,6 +13,15 @@ private:
     void DrawTimeline(Project& currentProject);
     bool Button(Rectangle bounds, const char* text);
     
+    enum class SidebarState {
+        Selection,
+        Properties
+    };
+    SidebarState sidebarState = SidebarState::Selection;
+    
+    bool promptingForScriptName = false;
+    std::string customScriptNameBuffer = "";
+    
     float Slider(Rectangle bounds, const char* text, float value, float minValue, float maxValue);
     bool FloatBox(Rectangle bounds, float* value, int id);
     bool IntBox(Rectangle bounds, int* value, int id);
