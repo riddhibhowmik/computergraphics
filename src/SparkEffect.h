@@ -20,6 +20,7 @@ class SparkEffect : public Effect {
         float gravity;
         float floorY;
         int max;
+        float spawnAccumulator = 0.0f;
 
         vector<SparkParticle> particles;
 

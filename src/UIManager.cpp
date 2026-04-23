@@ -4,6 +4,8 @@
 #include "SparkEffect.h"
 #include "NebulaEffect.h"
 #include "BlackHoleEffect.h"
+#include "RainEffect.h"
+#include "LightningEffect.h"
 #include "Easings.h"
 #include <iostream>
 #include <sstream>
@@ -202,6 +204,7 @@ void UIManager::DrawToolbar()
     // Toolbar on top of screen
     DrawRectangle(0, 0, 1920, 40, DARKGRAY);
     DrawText("File: Create New | Load | Save | Save As | Open Location | Import | Export | Options | Exit", 20, 10, 20, RAYWHITE);
+    DrawFPS(1920 - 120, 10);
 }
 
 void UIManager::DrawSidebar(Project &currentProject)
@@ -286,7 +289,19 @@ void UIManager::DrawSidebar(Project &currentProject)
             currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
             sidebarState = SidebarState::Properties;
         }
-        if (Button({1920 - 480 + 20, 350, 440, 40}, "+ Add custom script"))
+        if (Button({1920 - 480 + 20, 350, 440, 40}, "+ Add Rain Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<RainEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 400, 440, 40}, "+ Add Lightning Effect"))
+        {
+            currentProject.AddEffect(std::make_shared<LightningEffect>());
+            currentProject.selectedEffectIndex = currentProject.activeEffects.size() - 1;
+            sidebarState = SidebarState::Properties;
+        }
+        if (Button({1920 - 480 + 20, 450, 440, 40}, "+ Add custom script"))
         {
             promptingForScriptName = true;
             customScriptNameBuffer = "";
@@ -404,10 +419,10 @@ void UIManager::DrawSidebar(Project &currentProject)
             DrawText("nebula settings", 1920 - 480 + 20, 260, 20, BLACK);
             // spawnrate slider, keep this one low cause nebula particles are bigegr and more expensive
             nebula->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
-                                          TextFormat("spawn rate: %d", nebula->spawnRate), (float)nebula->spawnRate, 1.0f, 10.0f);
+                                          TextFormat("spawn rate: %d", nebula->spawnRate), (float)nebula->spawnRate, 1.0f, 100.0f);
             // drift slider
             nebula->drift = Slider({1920 - 480 + 20, 380, 440, 20},
-                                TextFormat("drift: %.1f", nebula->drift), nebula->drift, 0.0f, 100.0f);
+                                TextFormat("drift: %.1f", nebula->drift), nebula->drift, 0.0f, 300.0f);
             // toggle
             DrawText(TextFormat("active: %s", nebula->isActive ? "yes" : "no"), 1920 - 480 + 20, 440, 20, BLACK);
             if (Button({1920 - 480 + 200, 435, 80, 30}, "toggle"))
@@ -418,14 +433,50 @@ void UIManager::DrawSidebar(Project &currentProject)
             DrawText("black hole settings", 1920 - 480 + 20, 260, 20, BLACK);
             // spawnrate slider
             blackHole->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
-                                          TextFormat("spawn rate: %d", blackHole->spawnRate), (float)blackHole->spawnRate, 1.0f, 50.0f);
+                                          TextFormat("spawn rate: %d", blackHole->spawnRate), (float)blackHole->spawnRate, 1.0f, 400.0f);
             // pull slider
             blackHole->pull = Slider({1920 - 480 + 20, 380, 440, 20},
-                                TextFormat("pull: %.0f", blackHole->pull), blackHole->pull, 100000.0f, 1500000.0f);
+                                TextFormat("pull: %.0f", blackHole->pull), blackHole->pull, 100000.0f, 8000000.0f);
             // toggle
             DrawText(TextFormat("active: %s", blackHole->isActive ? "yes" : "no"), 1920 - 480 + 20, 440, 20, BLACK);
             if (Button({1920 - 480 + 200, 435, 80, 30}, "toggle"))
                 blackHole->isActive = !blackHole->isActive;
+        }
+        else if (effect->name == "Rain") {
+            auto rain = std::static_pointer_cast<RainEffect>(effect);
+            DrawText("rain settings", 1920 - 480 + 20, 260, 20, BLACK);
+
+            // storm intensity slider
+            rain->stormIntensity = Slider({1920 - 480 + 20, 320, 440, 20},
+                                          TextFormat("storm intensity: %.2f", rain->stormIntensity), rain->stormIntensity, 0.0f, 5.0f);
+            // gust strength slider
+            rain->gustStrength = Slider({1920 - 480 + 20, 380, 440, 20},
+                                          TextFormat("gust strength: %.2f", rain->gustStrength), rain->gustStrength, 0.0f, 3.0f);
+            // base wind slider
+            rain->baseWindX = Slider({1920 - 480 + 20, 440, 440, 20},
+                                          TextFormat("base wind: %.0f", rain->baseWindX), rain->baseWindX, -800.0f, 800.0f);
+            // toggle
+            DrawText(TextFormat("active: %s", rain->isActive ? "yes" : "no"), 1920 - 480 + 20, 500, 20, BLACK);
+            if (Button({1920 - 480 + 200, 495, 80, 30}, "toggle"))
+                rain->isActive = !rain->isActive;
+        }
+        else if (effect->name == "Lightning") {
+            auto lightning = std::static_pointer_cast<LightningEffect>(effect);
+            DrawText("lightning settings", 1920 - 480 + 20, 260, 20, BLACK);
+
+            // minimum interval slider
+            lightning->minStrikeInterval = Slider({1920 - 480 + 20, 320, 440, 20},
+                                          TextFormat("min strike interval: %.2f", lightning->minStrikeInterval), lightning->minStrikeInterval, 0.1f, 5.0f);
+            // maximum interval slider
+            lightning->maxStrikeInterval = Slider({1920 - 480 + 20, 380, 440, 20},
+                                          TextFormat("max strike interval: %.2f", lightning->maxStrikeInterval), lightning->maxStrikeInterval, 0.5f, 15.0f);
+            // flash strength slider
+            lightning->masterFlashStrength = Slider({1920 - 480 + 20, 440, 440, 20},
+                                          TextFormat("flash strength: %.2f", lightning->masterFlashStrength), lightning->masterFlashStrength, 0.0f, 3.0f);
+            // toggle
+            DrawText(TextFormat("active: %s", lightning->isActive ? "yes" : "no"), 1920 - 480 + 20, 500, 20, BLACK);
+            if (Button({1920 - 480 + 200, 495, 80, 30}, "toggle"))
+                lightning->isActive = !lightning->isActive;
         }
         else
         {

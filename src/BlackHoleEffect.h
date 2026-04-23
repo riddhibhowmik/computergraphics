@@ -22,6 +22,9 @@ class BlackHoleEffect : public Effect {
         float pull;
         Vector2 center;
 
+        // for uncapped framerate
+        float spawnAccumulator = 0.0f;
+
         vector<BlackHoleParticle> particles;
         Texture2D blackHoleTexture;
 

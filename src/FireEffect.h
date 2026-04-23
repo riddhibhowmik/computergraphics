@@ -10,9 +10,14 @@ class FireEffect : public Effect {
         int spawnRate;
         float wind;
         int max;
+        float spawnAccumulator = 0.0f;
 
         vector<Particle> particles;
         Texture2D glow;
+
+        Texture2D fireTexture;
+        // custom 256 color gradient array for heat, trying this out
+        Color heatColors[256];
 
         // constuctor, destructor, and override
         FireEffect();
