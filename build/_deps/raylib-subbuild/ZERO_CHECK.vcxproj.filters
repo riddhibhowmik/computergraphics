@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\24f0cd216b2ee31c1cec15552a9e9c12\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E615B692-BFBE-3F70-9791-8FA55D1B5DEC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

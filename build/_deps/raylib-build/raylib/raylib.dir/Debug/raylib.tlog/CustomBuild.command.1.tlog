@@ -1,0 +1,10 @@
+^C:\USERS\HARRY\DESKTOP\SCHOOL\4-2\CS4361\COMPUTERGRAPHICS\BUILD\_DEPS\RAYLIB-SRC\SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics -BC:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build --check-stamp-file C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-build/raylib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

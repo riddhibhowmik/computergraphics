@@ -21,6 +21,7 @@ class SparkEffect : public Effect {
         float floorY;
         int max;
         float spawnAccumulator = 0.0f;
+        Vector2 position;
 
         vector<SparkParticle> particles;
 
@@ -29,6 +30,7 @@ class SparkEffect : public Effect {
 
         void Update(float dt) override;
         void Draw() override;
-        string Serialize() override { return "SparkData"; }
-        void Deserialize(const string& data) override {}
+        void Reset() override;
+        string Serialize() override;
+        void Deserialize(const string& data) override;
 };

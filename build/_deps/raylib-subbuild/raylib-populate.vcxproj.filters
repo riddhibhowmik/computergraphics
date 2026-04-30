@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\4e2b570354a7e38d88a00604d6d2eacb\raylib-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\ca7a3f625f7e03993b19c13c8b480ebd\raylib-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\24f0cd216b2ee31c1cec15552a9e9c12\raylib-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Harry\Desktop\school\4-2\cs4361\computergraphics\build\_deps\raylib-subbuild\CMakeFiles\raylib-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E615B692-BFBE-3F70-9791-8FA55D1B5DEC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

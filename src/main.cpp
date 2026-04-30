@@ -9,6 +9,7 @@
 #include "BlackHoleEffect.h"
 #include "RainEffect.h"
 #include "LightningEffect.h"
+#include "ExportManager.h"
 
 const char* bloomShaderCode = R"GLSL(
 #version 330
@@ -39,7 +40,7 @@ void main() {
         }
         // average samples
         glow /= 9;
-        final = vec4(base.rgb + (glow * amount), base.a) * colDiffuse * fragColor;
+        finalColor = vec4(base.rgb + (glow * amount), base.a) * colDiffuse * fragColor;
     }
 }
 )GLSL";
@@ -59,21 +60,18 @@ int main() {
 
     Project project;
     UIManager uiManager;
+    ExportManager exporter;
+    // Set initial state
+    uiManager.currentState = AppState::MainMenu;
 
-    //project.AddEffect(std::make_shared<SnowEffect>());
-    //project.AddEffect(std::make_shared<FireEffect>());
-    //project.AddEffect(std::make_shared<SparkEffect>());
-    //project.AddEffect(std::make_shared<NebulaEffect>());
-    //project.AddEffect(std::make_shared<BlackHoleEffect>());
-    //project.AddEffect(std::make_shared<RainEffect>());
-    //project.AddEffect(std::make_shared<LightningEffect>());
-
-    while(!WindowShouldClose()) {
+    while(!WindowShouldClose() && uiManager.currentState != AppState::Exit) {
         float dt = GetFrameTime();
 
-        for (auto& effect : project.activeEffects)
-            if(effect->isActive)
-                effect->Update(dt);
+        if (uiManager.currentState == AppState::Editing) {
+            if (!exporter.isExporting) {
+                project.UpdatePlayback(dt);
+            }
+        }
 
         float lightningFlash = 0.0f;
 
@@ -95,9 +93,11 @@ int main() {
         BeginTextureMode(target);
         ClearBackground(BLACK);
 
-        for (auto& effect : project.activeEffects)
-            if(effect->isActive)
-                effect->Draw();
+        if (uiManager.currentState == AppState::Editing) {
+            if (!exporter.isExporting) {
+                project.Draw();
+            }
+        }
 
         EndTextureMode();
 
@@ -114,8 +114,13 @@ int main() {
         EndShaderMode();
 
         // render pass 3, draw ui on top of everything
-        uiManager.UpdateAndDraw(project);
+        uiManager.UpdateAndDraw(project, exporter);
         EndDrawing();
+        
+        // Run export frame step after main loop draw (it handles its own offscreen render)
+        if (exporter.isExporting) {
+            exporter.UpdateAndRender(project);
+        }
     }
     UnloadShader(bloom);
     UnloadRenderTexture(target);

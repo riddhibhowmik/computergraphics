@@ -33,7 +33,8 @@ class BlackHoleEffect : public Effect {
 
         void Update(float dt) override;
         void Draw() override;
+        void Reset() override;
 
-        string Serialize() override { return "BlackHoleData"; }
-        void Deserialize(const string& data) override {}
+        string Serialize() override;
+        void Deserialize(const string& data) override;
 };

@@ -26,6 +26,9 @@ src/NebulaEffect.cpp
 src/BlackHoleEffect.cpp
 src/RainEffect.cpp
 src/LightningEffect.cpp
+src/SceneEffect.cpp
+src/ExportManager.cpp
 src/UIManager.cpp
+src/FileDialog.cpp
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)

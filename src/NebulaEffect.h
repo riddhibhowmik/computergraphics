@@ -33,6 +33,7 @@ class NebulaEffect : public Effect {
         int max;
         float drift;
         float spawnAccumulator = 0.0f;
+        Vector2 position;
 
         vector<NebulaParticle> particles;
         Texture2D cloudTexture;
@@ -49,7 +50,8 @@ class NebulaEffect : public Effect {
 
         void Update(float dt) override;
         void Draw() override;
+        void Reset() override;
 
-        string Serialize() override { return "NebulaData"; }
-        void Deserialize(const string& data) override {}
+        string Serialize() override;
+        void Deserialize(const string& data) override;
 };

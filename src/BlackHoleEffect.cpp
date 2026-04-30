@@ -27,6 +27,12 @@ BlackHoleEffect::~BlackHoleEffect()
     UnloadTexture(blackHoleTexture);
 }
 
+void BlackHoleEffect::Reset() {
+    for (int i = 0; i < max; i++) {
+        particles[i].isActive = false;
+    }
+}
+
 void BlackHoleEffect::Update(float dt)
 {
     int spawned = 0;
@@ -46,11 +52,16 @@ void BlackHoleEffect::Update(float dt)
     {
         if (!particles[i].isActive)
         {
+<<<<<<< Updated upstream
             if (spawned >= toSpawn)
             {
                 break;
             }
 
+=======
+            if (GetRandomValue(0, 100) > GetFadeFactor() * 100.0f) continue;
+            
+>>>>>>> Stashed changes
             particles[i].isActive = true;
 
             // make spawn narrower than before
@@ -137,6 +148,7 @@ void BlackHoleEffect::Update(float dt)
 
 void BlackHoleEffect::Draw()
 {
+    float fade = GetFadeFactor();
     BeginBlendMode(BLEND_ADDITIVE);
 
     for (int i = 0; i < max; i++)
@@ -153,12 +165,17 @@ void BlackHoleEffect::Draw()
             float width = particles[i].size * stretch;
             float height = particles[i].size * (1.0f / stretch);
 
-
             Rectangle source = {0, 0, (float)blackHoleTexture.width, (float)blackHoleTexture.height};
             Rectangle dest = {particles[i].position.x, particles[i].position.y, width, height};
             Vector2 origin = {width / 2.0f, height / 2.0f};
 
-            DrawTexturePro(blackHoleTexture, source, dest, origin, heading, particles[i].color);
+            Color fadedColor = particles[i].color;
+            fadedColor.r = (unsigned char)(fadedColor.r * fade);
+            fadedColor.g = (unsigned char)(fadedColor.g * fade);
+            fadedColor.b = (unsigned char)(fadedColor.b * fade);
+            fadedColor.a = (unsigned char)(fadedColor.a * fade);
+
+            DrawTexturePro(blackHoleTexture, source, dest, origin, heading, fadedColor);
         }
     }
     EndBlendMode();
@@ -167,11 +184,45 @@ void BlackHoleEffect::Draw()
     BeginBlendMode(BLEND_ALPHA);
 
     // layer photon rings to make it glow, theyre white in center and more purple on the outside
-    DrawCircleLines(center.x, center.y, 44.0f, {200, 0, 255, 80});       
-    DrawCircleLines(center.x, center.y, 41.0f, {255, 245, 255, 200});      
+    DrawCircleLines(center.x, center.y, 44.0f, {200, 0, 255, (unsigned char)(80 * fade)});       
+    DrawCircleLines(center.x, center.y, 41.0f, {255, 245, 255, (unsigned char)(200 * fade)});      
 
     // center of black hole, just a void
-    DrawCircle(center.x, center.y, 40.0f, BLACK); 
+    DrawCircle(center.x, center.y, 40.0f, {0, 0, 0, (unsigned char)(255 * fade)}); 
 
     EndBlendMode();
+}
+
+std::string BlackHoleEffect::Serialize() {
+    return "Effect:Black Hole;" + SerializeBase() + "SpawnRate:" + std::to_string(spawnRate) + ";Pull:" + std::to_string(pull) + ";PosX:" + std::to_string(center.x) + ";PosY:" + std::to_string(center.y) + ";Active:" + std::to_string(isActive);
+}
+
+void BlackHoleEffect::Deserialize(const std::string& data) {
+    size_t pos = 0;
+    std::string token;
+    std::string s = data;
+    while ((pos = s.find(";")) != std::string::npos) {
+        token = s.substr(0, pos);
+        if (!DeserializeBaseToken(token)) {
+            if (token.find("SpawnRate:") == 0) spawnRate = std::stoi(token.substr(10));
+            else if (token.find("Pull:") == 0) pull = std::stof(token.substr(5));
+            else if (token.find("PosX:") == 0) center.x = std::stof(token.substr(5));
+            else if (token.find("PosY:") == 0) center.y = std::stof(token.substr(5));
+            else if (token.find("Active:") == 0) isActive = std::stoi(token.substr(7));
+        }
+        s.erase(0, pos + 1);
+    }
+    if (!DeserializeBaseToken(s)) {
+        if (s.find("SpawnRate:") == 0) spawnRate = std::stoi(s.substr(10));
+        else if (s.find("Pull:") == 0) pull = std::stof(s.substr(5));
+        else if (s.find("PosX:") == 0) center.x = std::stof(s.substr(5));
+        else if (s.find("PosY:") == 0) center.y = std::stof(s.substr(5));
+        else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
+    }
+}substr(10));
+        else if (s.find("Pull:") == 0) pull = std::stof(s.substr(5));
+        else if (s.find("PosX:") == 0) center.x = std::stof(s.substr(5));
+        else if (s.find("PosY:") == 0) center.y = std::stof(s.substr(5));
+        else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
+    }
 }

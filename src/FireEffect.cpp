@@ -5,7 +5,11 @@ FireEffect::FireEffect() : Effect("Fire") {
     max = 50000;
     spawnRate = 15;
     wind = 0.0f;
+<<<<<<< Updated upstream
     spawnAccumulator = 0.0f;
+=======
+    position = {1920.0f / 2.0f, 1080.0f - 250.0f};
+>>>>>>> Stashed changes
     particles.resize(max);
     
     for (int i = 0; i < max; i++) {
@@ -53,10 +57,15 @@ FireEffect::~FireEffect() {
     UnloadTexture(fireTexture);
 }
 
+void FireEffect::Reset() {
+    for (int i = 0; i < max; i++) {
+        particles[i].isActive = false;
+    }
+}
+
 void FireEffect::Update(float dt) {
     int spawned = 0;
-    // center for 1080p
-    Vector2 emitterPos = {(1920.0f - 480.0f) / 2.0f, 1080.0f - 250.0f}; 
+    Vector2 emitterPos = position; 
 
     float spawns = spawnRate * 60.0f;
     spawnAccumulator += spawns * dt;
@@ -69,6 +78,8 @@ void FireEffect::Update(float dt) {
                 break;
             }
 
+            if (GetRandomValue(0, 100) > GetFadeFactor() * 100.0f) continue;
+            
             particles[i].isActive = true;
             if (GetRandomValue(1, 100) <= 15) {
                 particles[i].size = (float)GetRandomValue(3, 8);
@@ -100,7 +111,11 @@ void FireEffect::Update(float dt) {
                 continue;
             }
 
+<<<<<<< Updated upstream
             float center = (1920.0f - 480.0f) / 2.0f;
+=======
+            float center = emitterPos.x;
+>>>>>>> Stashed changes
             float distFromCenter = center - particles[i].position.x;
 
             if (particles[i].size > 10.0f) {
@@ -136,6 +151,7 @@ void FireEffect::Update(float dt) {
 }
 
 void FireEffect::Draw() {
+    float fade = GetFadeFactor();
     BeginBlendMode(BLEND_ADDITIVE);
     for (int i = 0; i < max; i++) {
         if (particles[i].isActive) {
@@ -163,6 +179,7 @@ void FireEffect::Draw() {
                 }
                 current.a = (unsigned char)(alpha * 255.0f);
             }
+<<<<<<< Updated upstream
             else {
                 current = WHITE;
                 current.a = (unsigned char)(lifePercent * 255.0f);
@@ -171,6 +188,13 @@ void FireEffect::Draw() {
             float aspectRatio = (float)fireTexture.height / (float)fireTexture.width;
             float drawWidth = currentSize;
             float drawHeight = currentSize * aspectRatio;
+=======
+            
+            r = (unsigned char)(r * fade);
+            g = (unsigned char)(g * fade);
+            b = (unsigned char)(b * fade);
+            a = (unsigned char)(a * fade);
+>>>>>>> Stashed changes
 
             Rectangle source = {0, 0, (float)fireTexture.width, (float)fireTexture.height};
             Rectangle dest = {particles[i].position.x, particles[i].position.y, drawWidth, drawHeight};
@@ -183,4 +207,36 @@ void FireEffect::Draw() {
         }
     }
     EndBlendMode();
+}
+
+std::string FireEffect::Serialize() {
+    return "Effect:Fire;" + SerializeBase() + "SpawnRate:" + std::to_string(spawnRate) + ";Wind:" + std::to_string(wind) + ";PosX:" + std::to_string(position.x) + ";PosY:" + std::to_string(position.y) + ";Active:" + std::to_string(isActive);
+}
+
+void FireEffect::Deserialize(const std::string& data) {
+    size_t pos = 0;
+    std::string token;
+    std::string s = data;
+    while ((pos = s.find(";")) != std::string::npos) {
+        token = s.substr(0, pos);
+        if (!DeserializeBaseToken(token)) {
+            if (token.find("SpawnRate:") == 0) spawnRate = std::stoi(token.substr(10));
+            else if (token.find("Wind:") == 0) wind = std::stof(token.substr(5));
+            else if (token.find("PosX:") == 0) position.x = std::stof(token.substr(5));
+            else if (token.find("PosY:") == 0) position.y = std::stof(token.substr(5));
+            else if (token.find("Active:") == 0) isActive = std::stoi(token.substr(7));
+        }
+        s.erase(0, pos + 1);
+    }
+    if (!DeserializeBaseToken(s)) {
+        if (s.find("SpawnRate:") == 0) spawnRate = std::stoi(s.substr(10));
+        else if (s.find("Wind:") == 0) wind = std::stof(s.substr(5));
+        else if (s.find("PosX:") == 0) position.x = std::stof(s.substr(5));
+        else if (s.find("PosY:") == 0) position.y = std::stof(s.substr(5));
+        else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
+    }
+}se if (s.find("PosX:") == 0) position.x = std::stof(s.substr(5));
+        else if (s.find("PosY:") == 0) position.y = std::stof(s.substr(5));
+        else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
+    }
 }

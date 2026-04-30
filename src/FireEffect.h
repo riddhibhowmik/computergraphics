@@ -11,6 +11,7 @@ class FireEffect : public Effect {
         float wind;
         int max;
         float spawnAccumulator = 0.0f;
+        Vector2 position;
 
         vector<Particle> particles;
         Texture2D glow;
@@ -25,6 +26,7 @@ class FireEffect : public Effect {
 
         void Update(float dt) override;
         void Draw() override;
-        string Serialize() override { return "FireData"; }
-        void Deserialize(const string& data) override {}
+        void Reset() override;
+        string Serialize() override;
+        void Deserialize(const string& data) override;
 };
