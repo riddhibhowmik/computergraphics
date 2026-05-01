@@ -366,10 +366,9 @@ void UIManager::UpdateAndDraw(Project &currentProject, ExportManager &exporter)
         case AppState::Editing:
             DrawToolbar(currentProject, exporter);
             DrawTimeline(currentProject);
-            DrawSidebar(currentProject); // Draw sidebar last so it stays on top of timeline if needed
+            DrawSidebar(currentProject); 
             
             if (exporter.isExporting) {
-                // Dim screen with an export overlay
                 DrawRectangle(0, 0, 1920, 1080, Fade(BLACK, 0.8f));
                 DrawText("Exporting to MP4...", 1920/2 - 200, 1080/2 - 50, 40, RAYWHITE);
                 DrawRectangle(1920/2 - 250, 1080/2 + 20, 500, 30, DARKGRAY);
@@ -384,7 +383,6 @@ void UIManager::UpdateAndDraw(Project &currentProject, ExportManager &exporter)
 
 void UIManager::DrawToolbar(Project &currentProject, ExportManager &exporter)
 {
-    // Toolbar on top of screen
     DrawRectangle(0, 0, 1920, 40, DARKGRAY);
     DrawText("File:", 20, 10, 20, RAYWHITE);
     DrawFPS(1920 - 120, 10);
@@ -435,7 +433,6 @@ void UIManager::DrawToolbar(Project &currentProject, ExportManager &exporter)
         }
     }
     if (Button({850, 5, 90, 30}, "Options")) {
-        // TODO: Options functionality
     }
     if (Button({950, 5, 80, 30}, "Exit")) {
         if (currentProject.hasUnsavedChanges) {
@@ -474,7 +471,6 @@ void UIManager::DrawToolbar(Project &currentProject, ExportManager &exporter)
                 
                 auto sceneEffect = std::make_shared<SceneEffect>(p.filename().string());
                 currentProject.AddEffect(sceneEffect);
-                // Override default layer assigned by AddEffect to ensure it stays in background
                 sceneEffect->layer = -1;
                 currentProject.SortEffectsByLayer();
             }
@@ -486,7 +482,6 @@ void UIManager::DrawToolbar(Project &currentProject, ExportManager &exporter)
 
 void UIManager::DrawSidebar(Project &currentProject)
 {
-    // Right sidebar: 480 x 900
     DrawRectangle(1920 - 480, 40, 480, 900, Fade(RAYWHITE, 0.95f));
     DrawRectangleLines(1920 - 480, 40, 480, 900, DARKGRAY);
 
@@ -598,7 +593,6 @@ void UIManager::DrawSidebar(Project &currentProject)
             return;
         }
 
-        // Properties area
         DrawLine(1920 - 480 + 20, 100, 1920 - 20, 100, DARKGRAY);
         DrawText("Properties", 1920 - 480 + 20, 110, 24, BLACK);
 
@@ -607,29 +601,23 @@ void UIManager::DrawSidebar(Project &currentProject)
             auto effect = currentProject.activeEffects[currentProject.selectedEffectIndex];
             DrawText(TextFormat("Editing: %s", effect->name.c_str()), 1920 - 480 + 20, 150, 20, DARKBLUE);
 
-        // Use dynamic cast to edit SnowEffect specifically
         if (auto snow = std::dynamic_pointer_cast<SnowEffect>(effect))
         {
-            // Speed Property
             snow->speed = Slider({1920 - 480 + 20, 310, 300, 20}, "Speed", snow->speed, 0.0f, 1000.0f);
             FloatBox({1920 - 480 + 340, 300, 100, 30}, &snow->speed, 1);
 
-            // Density Property
             snow->density = Slider({1920 - 480 + 20, 370, 300, 20}, "Density", snow->density, 10.0f, 5000.0f);
             FloatBox({1920 - 480 + 340, 360, 100, 30}, &snow->density, 2);
 
-            // Direction Property
             snow->directionAngle = Slider({1920 - 480 + 20, 430, 300, 20}, "Angle", snow->directionAngle, -180.0f, 360.0f);
             FloatBox({1920 - 480 + 340, 420, 100, 30}, &snow->directionAngle, 3);
 
-            // Seed Property
             float seedFloat = (float)snow->seed;
             seedFloat = Slider({1920 - 480 + 20, 490, 300, 20}, "Seed", seedFloat, 0.0f, 100.0f);
             if (activeTextBox != 4)
-                snow->seed = (int)seedFloat; // Only update from slider if not typing
+                snow->seed = (int)seedFloat; 
             IntBox({1920 - 480 + 340, 480, 100, 30}, &snow->seed, 4);
 
-            // Easing Type Property
             DrawText("Easing Type:", 1920 - 480 + 20, 530, 20, BLACK);
             DrawText(Easing::GetName((EasingType)snow->easingType), 1920 - 480 + 160, 530, 20, DARKBLUE);
             if (Button({1920 - 480 + 20, 560, 100, 30}, "< Prev"))
@@ -649,14 +637,12 @@ void UIManager::DrawSidebar(Project &currentProject)
                 snow->easingType = (int)EasingType::Custom;
             }
 
-            // Re-initialize particles button
             if (Button({1920 - 480 + 20, 610, 440, 40}, "Apply Density & Seed"))
             {
                 snow->SetSeed(snow->seed);
                 snow->InitParticles();
             }
 
-            // Toggle Active
             DrawText(TextFormat("Active: %s", snow->isActive ? "Yes" : "No"), 1920 - 480 + 20, 670, 20, BLACK);
             if (Button({1920 - 480 + 200, 665, 80, 30}, "Toggle"))
                 snow->isActive = !snow->isActive;
@@ -665,19 +651,19 @@ void UIManager::DrawSidebar(Project &currentProject)
         {
             auto fire = std::static_pointer_cast<FireEffect>(effect);
             DrawText("Fire Settings", 1920 - 480 + 20, 260, 20, BLACK);
-            // wind slider
+            
             fire->wind = Slider({1920 - 480 + 20, 320, 440, 20},
                                 TextFormat("wind force: %.1f", fire->wind), fire->wind, -2500.0f, 2500.0f);
-            // spawnrate slider
+            
             fire->spawnRate = (int)Slider({1920 - 480 + 20, 380, 440, 20},
                                           TextFormat("spawn rate: %d", fire->spawnRate), (float)fire->spawnRate, 10.0f, 200.0f);
-            // position X
+            
             fire->position.x = Slider({1920 - 480 + 20, 440, 440, 20},
                                 TextFormat("position X: %.0f", fire->position.x), fire->position.x, 0.0f, 1920.0f);
-            // position Y
+            
             fire->position.y = Slider({1920 - 480 + 20, 500, 440, 20},
                                 TextFormat("position Y: %.0f", fire->position.y), fire->position.y, 0.0f, 1080.0f);
-            // toggle
+            
             DrawText(TextFormat("active: %s", fire->isActive ? "yes" : "no"), 1920 - 480 + 20, 560, 20, BLACK);
             if (Button({1920 - 480 + 200, 555, 80, 30}, "toggle"))
                 fire->isActive = !fire->isActive;
@@ -686,19 +672,18 @@ void UIManager::DrawSidebar(Project &currentProject)
             auto sparks = std::static_pointer_cast<SparkEffect>(effect);
             DrawText("spark settings", 1920 - 480 + 20, 260, 20, BLACK);
 
-            // spawnrate slider
             sparks->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
                                           TextFormat("spawn rate: %d", sparks->spawnRate), (float)sparks->spawnRate, 1.0f, 50.0f);
-            // gravity slider
+            
             sparks->gravity = Slider({1920 - 480 + 20, 380, 440, 20},
                                 TextFormat("gravity: %.1f", sparks->gravity), sparks->gravity, 100.0f, 3000.0f);
-            // position X
+            
             sparks->position.x = Slider({1920 - 480 + 20, 440, 440, 20},
                                 TextFormat("position X: %.0f", sparks->position.x), sparks->position.x, 0.0f, 1920.0f);
-            // position Y
+            
             sparks->position.y = Slider({1920 - 480 + 20, 500, 440, 20},
                                 TextFormat("position Y: %.0f", sparks->position.y), sparks->position.y, 0.0f, 1080.0f);
-            // toggle
+            
             DrawText(TextFormat("active: %s", sparks->isActive ? "yes" : "no"), 1920 - 480 + 20, 560, 20, BLACK);
             if (Button({1920 - 480 + 200, 555, 80, 30}, "toggle"))
                 sparks->isActive = !sparks->isActive;
@@ -706,23 +691,19 @@ void UIManager::DrawSidebar(Project &currentProject)
         else if (effect->name == "Nebula") {
             auto nebula = std::static_pointer_cast<NebulaEffect>(effect);
             DrawText("nebula settings", 1920 - 480 + 20, 260, 20, BLACK);
-            // spawnrate slider, keep this one low cause nebula particles are bigegr and more expensive
+            
             nebula->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
                                           TextFormat("spawn rate: %d", nebula->spawnRate), (float)nebula->spawnRate, 1.0f, 100.0f);
-            // drift slider
+            
             nebula->drift = Slider({1920 - 480 + 20, 380, 440, 20},
-<<<<<<< Updated upstream
                                 TextFormat("drift: %.1f", nebula->drift), nebula->drift, 0.0f, 300.0f);
-=======
-                                TextFormat("drift: %.1f", nebula->drift), nebula->drift, 0.0f, 100.0f);
-            // position X
+            
             nebula->position.x = Slider({1920 - 480 + 20, 440, 440, 20},
                                 TextFormat("position X: %.0f", nebula->position.x), nebula->position.x, 0.0f, 1920.0f);
-            // position Y
+            
             nebula->position.y = Slider({1920 - 480 + 20, 500, 440, 20},
                                 TextFormat("position Y: %.0f", nebula->position.y), nebula->position.y, 0.0f, 1080.0f);
->>>>>>> Stashed changes
-            // toggle
+            
             DrawText(TextFormat("active: %s", nebula->isActive ? "yes" : "no"), 1920 - 480 + 20, 560, 20, BLACK);
             if (Button({1920 - 480 + 200, 555, 80, 30}, "toggle"))
                 nebula->isActive = !nebula->isActive;
@@ -730,23 +711,19 @@ void UIManager::DrawSidebar(Project &currentProject)
         else if (effect->name == "Black Hole") {
             auto blackHole = std::static_pointer_cast<BlackHoleEffect>(effect);
             DrawText("black hole settings", 1920 - 480 + 20, 260, 20, BLACK);
-            // spawnrate slider
+            
             blackHole->spawnRate = (int)Slider({1920 - 480 + 20, 320, 440, 20},
                                           TextFormat("spawn rate: %d", blackHole->spawnRate), (float)blackHole->spawnRate, 1.0f, 400.0f);
-            // pull slider
+            
             blackHole->pull = Slider({1920 - 480 + 20, 380, 440, 20},
-<<<<<<< Updated upstream
                                 TextFormat("pull: %.0f", blackHole->pull), blackHole->pull, 100000.0f, 8000000.0f);
-=======
-                                TextFormat("pull: %.0f", blackHole->pull), blackHole->pull, 100000.0f, 1500000.0f);
-            // position X
+            
             blackHole->center.x = Slider({1920 - 480 + 20, 440, 440, 20},
                                 TextFormat("position X: %.0f", blackHole->center.x), blackHole->center.x, 0.0f, 1920.0f);
-            // position Y
+            
             blackHole->center.y = Slider({1920 - 480 + 20, 500, 440, 20},
                                 TextFormat("position Y: %.0f", blackHole->center.y), blackHole->center.y, 0.0f, 1080.0f);
->>>>>>> Stashed changes
-            // toggle
+            
             DrawText(TextFormat("active: %s", blackHole->isActive ? "yes" : "no"), 1920 - 480 + 20, 560, 20, BLACK);
             if (Button({1920 - 480 + 200, 555, 80, 30}, "toggle"))
                 blackHole->isActive = !blackHole->isActive;
@@ -755,16 +732,15 @@ void UIManager::DrawSidebar(Project &currentProject)
             auto rain = std::static_pointer_cast<RainEffect>(effect);
             DrawText("rain settings", 1920 - 480 + 20, 260, 20, BLACK);
 
-            // storm intensity slider
             rain->stormIntensity = Slider({1920 - 480 + 20, 320, 440, 20},
                                           TextFormat("storm intensity: %.2f", rain->stormIntensity), rain->stormIntensity, 0.0f, 5.0f);
-            // gust strength slider
+            
             rain->gustStrength = Slider({1920 - 480 + 20, 380, 440, 20},
                                           TextFormat("gust strength: %.2f", rain->gustStrength), rain->gustStrength, 0.0f, 3.0f);
-            // base wind slider
+            
             rain->baseWindX = Slider({1920 - 480 + 20, 440, 440, 20},
                                           TextFormat("base wind: %.0f", rain->baseWindX), rain->baseWindX, -800.0f, 800.0f);
-            // toggle
+            
             DrawText(TextFormat("active: %s", rain->isActive ? "yes" : "no"), 1920 - 480 + 20, 500, 20, BLACK);
             if (Button({1920 - 480 + 200, 495, 80, 30}, "toggle"))
                 rain->isActive = !rain->isActive;
@@ -773,16 +749,15 @@ void UIManager::DrawSidebar(Project &currentProject)
             auto lightning = std::static_pointer_cast<LightningEffect>(effect);
             DrawText("lightning settings", 1920 - 480 + 20, 260, 20, BLACK);
 
-            // minimum interval slider
             lightning->minStrikeInterval = Slider({1920 - 480 + 20, 320, 440, 20},
                                           TextFormat("min strike interval: %.2f", lightning->minStrikeInterval), lightning->minStrikeInterval, 0.1f, 5.0f);
-            // maximum interval slider
+            
             lightning->maxStrikeInterval = Slider({1920 - 480 + 20, 380, 440, 20},
                                           TextFormat("max strike interval: %.2f", lightning->maxStrikeInterval), lightning->maxStrikeInterval, 0.5f, 15.0f);
-            // flash strength slider
+            
             lightning->masterFlashStrength = Slider({1920 - 480 + 20, 440, 440, 20},
                                           TextFormat("flash strength: %.2f", lightning->masterFlashStrength), lightning->masterFlashStrength, 0.0f, 3.0f);
-            // toggle
+            
             DrawText(TextFormat("active: %s", lightning->isActive ? "yes" : "no"), 1920 - 480 + 20, 500, 20, BLACK);
             if (Button({1920 - 480 + 200, 495, 80, 30}, "toggle"))
                 lightning->isActive = !lightning->isActive;
@@ -805,7 +780,6 @@ void UIManager::DrawTimeline(Project &currentProject)
     DrawRectangle(0, timelineY, 1920, timelineHeight, Fade(GRAY, 0.95f));
     DrawRectangleLines(0, timelineY, 1920, timelineHeight, DARKGRAY);
     
-    // Playback Controls
     if (Button({20, timelineY + 10, 60, 30}, currentProject.isPlaying ? "Pause" : "Play")) {
         currentProject.isPlaying = !currentProject.isPlaying;
     }
@@ -814,7 +788,6 @@ void UIManager::DrawTimeline(Project &currentProject)
         currentProject.currentTime = 0.0f;
     }
     
-    // Timeline Header (Ruler)
     float rulerY = timelineY + 50.0f;
     DrawRectangle(0, rulerY, 1920, 20, LIGHTGRAY);
     for (int i = 0; i < currentProject.totalDuration; i++) {
@@ -825,14 +798,12 @@ void UIManager::DrawTimeline(Project &currentProject)
         }
     }
     
-    // Scrubber Head
     float scrubberX = 200.0f + (currentProject.currentTime * pixelsPerSecond) - timelineScrollX;
     if (scrubberX > 200 && scrubberX < 1920) {
         DrawLineEx({scrubberX, rulerY}, {scrubberX, 1080.0f}, 2.0f, RED);
         DrawTriangle({scrubberX - 5, rulerY}, {scrubberX + 5, rulerY}, {scrubberX, rulerY + 10}, RED);
     }
     
-    // Scrubber Interaction
     Vector2 mousePos = GetMousePosition();
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && currentDragMode == DragMode::None && mousePos.y >= rulerY && mousePos.y <= rulerY + 20 && mousePos.x > 200) {
         currentProject.currentTime = (mousePos.x - 200.0f + timelineScrollX) / pixelsPerSecond;
@@ -840,7 +811,6 @@ void UIManager::DrawTimeline(Project &currentProject)
         if (currentProject.currentTime > currentProject.totalDuration) currentProject.currentTime = currentProject.totalDuration;
     }
 
-    // Effect Blocks
     float tracksY = rulerY + 20.0f;
     
     for (int i = 0; i < currentProject.activeEffects.size(); i++)
@@ -850,7 +820,6 @@ void UIManager::DrawTimeline(Project &currentProject)
         float startX = 200.0f + (effect->startTime * pixelsPerSecond) - timelineScrollX;
         float endX = 200.0f + (effect->endTime * pixelsPerSecond) - timelineScrollX;
         float width = endX - startX;
-        // Shift layer visually (layer 0 at top, higher layers go down)
         float currentLayerY = tracksY + ((effect->layer + 1) * layerHeight) - timelineScrollY; 
         
         Rectangle blockBounds = {startX, currentLayerY, width, layerHeight - 5};
@@ -865,7 +834,6 @@ void UIManager::DrawTimeline(Project &currentProject)
         DrawRectangleLinesEx(blockBounds, 2, blockColor);
         DrawText(effect->name.c_str(), startX + 15, currentLayerY + 10, 10, RAYWHITE);
         
-        // Dragging Logic
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && currentDragMode == DragMode::None) {
             if (CheckCollisionPointRec(mousePos, leftHandle)) {
                 draggingEffectIndex = i;
@@ -888,7 +856,6 @@ void UIManager::DrawTimeline(Project &currentProject)
         }
     }
     
-    // Apply Drag
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && draggingEffectIndex != -1) {
         auto& effect = currentProject.activeEffects[draggingEffectIndex];
         float mouseTime = (mousePos.x - 200.0f + timelineScrollX) / pixelsPerSecond;
@@ -913,12 +880,11 @@ void UIManager::DrawTimeline(Project &currentProject)
             effect->startTime = newStart;
             effect->endTime = newStart + duration;
             
-            // Adjust layer based on Y drop
             float projectedY = mousePos.y - dragOffsetY;
             int newLayer = (int)((projectedY - tracksY + timelineScrollY) / layerHeight) - 1;
             if (newLayer != effect->layer) {
                 effect->layer = newLayer;
-                currentProject.SortEffectsByLayer(); // Sort immediately so rendering updates
+                currentProject.SortEffectsByLayer();
             }
             currentProject.hasUnsavedChanges = true;
             currentProject.RebuildState();
@@ -930,7 +896,6 @@ void UIManager::DrawTimeline(Project &currentProject)
         draggingEffectIndex = -1;
     }
     
-    // Track labels background
     DrawRectangle(0, rulerY, 200, 1080 - rulerY, DARKGRAY);
     DrawLine(200, rulerY, 200, 1080, BLACK);
     DrawText("Layers", 10, rulerY + 5, 10, RAYWHITE);

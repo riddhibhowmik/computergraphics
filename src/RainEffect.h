@@ -36,6 +36,7 @@ public:
 
     void Update(float dt) override;
     void Draw() override;
+    void Reset() override;
 
     std::string Serialize() override { return "RainData"; }
     void Deserialize(const std::string& data) override {}

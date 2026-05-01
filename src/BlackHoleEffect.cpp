@@ -52,16 +52,8 @@ void BlackHoleEffect::Update(float dt)
     {
         if (!particles[i].isActive)
         {
-<<<<<<< Updated upstream
-            if (spawned >= toSpawn)
-            {
-                break;
-            }
-
-=======
             if (GetRandomValue(0, 100) > GetFadeFactor() * 100.0f) continue;
             
->>>>>>> Stashed changes
             particles[i].isActive = true;
 
             // make spawn narrower than before
@@ -214,12 +206,6 @@ void BlackHoleEffect::Deserialize(const std::string& data) {
     }
     if (!DeserializeBaseToken(s)) {
         if (s.find("SpawnRate:") == 0) spawnRate = std::stoi(s.substr(10));
-        else if (s.find("Pull:") == 0) pull = std::stof(s.substr(5));
-        else if (s.find("PosX:") == 0) center.x = std::stof(s.substr(5));
-        else if (s.find("PosY:") == 0) center.y = std::stof(s.substr(5));
-        else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
-    }
-}substr(10));
         else if (s.find("Pull:") == 0) pull = std::stof(s.substr(5));
         else if (s.find("PosX:") == 0) center.x = std::stof(s.substr(5));
         else if (s.find("PosY:") == 0) center.y = std::stof(s.substr(5));

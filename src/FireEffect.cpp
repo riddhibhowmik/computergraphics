@@ -5,20 +5,12 @@ FireEffect::FireEffect() : Effect("Fire") {
     max = 50000;
     spawnRate = 15;
     wind = 0.0f;
-<<<<<<< Updated upstream
-    spawnAccumulator = 0.0f;
-=======
     position = {1920.0f / 2.0f, 1080.0f - 250.0f};
->>>>>>> Stashed changes
     particles.resize(max);
     
     for (int i = 0; i < max; i++) {
         particles[i].isActive = false;
     }
-
-    //Image glowImage = GenImageGradientRadial(64, 64, 0.0f, WHITE, BLANK);
-    //glow = LoadTextureFromImage(glowImage);
-    //UnloadImage(glowImage);
 
     fireTexture = LoadTexture("../src/smoke.png");
 
@@ -111,11 +103,7 @@ void FireEffect::Update(float dt) {
                 continue;
             }
 
-<<<<<<< Updated upstream
-            float center = (1920.0f - 480.0f) / 2.0f;
-=======
             float center = emitterPos.x;
->>>>>>> Stashed changes
             float distFromCenter = center - particles[i].position.x;
 
             if (particles[i].size > 10.0f) {
@@ -159,7 +147,7 @@ void FireEffect::Draw() {
             float taper = pow(lifePercent, 0.5f);
             float currentSize = particles[i].size * sin(lifePercent * PI) * taper;
 
-            Color current;
+            Color current = {255, 255, 255, 255};
 
             if (particles[i].size > 10.0f) {
                 int colorIndex = (int)(lifePercent * 255.0f);
@@ -179,22 +167,14 @@ void FireEffect::Draw() {
                 }
                 current.a = (unsigned char)(alpha * 255.0f);
             }
-<<<<<<< Updated upstream
-            else {
-                current = WHITE;
-                current.a = (unsigned char)(lifePercent * 255.0f);
-            }
             
-            float aspectRatio = (float)fireTexture.height / (float)fireTexture.width;
+            current.r = (unsigned char)(current.r * fade);
+            current.g = (unsigned char)(current.g * fade);
+            current.b = (unsigned char)(current.b * fade);
+            current.a = (unsigned char)(current.a * fade);
+
             float drawWidth = currentSize;
-            float drawHeight = currentSize * aspectRatio;
-=======
-            
-            r = (unsigned char)(r * fade);
-            g = (unsigned char)(g * fade);
-            b = (unsigned char)(b * fade);
-            a = (unsigned char)(a * fade);
->>>>>>> Stashed changes
+            float drawHeight = currentSize;
 
             Rectangle source = {0, 0, (float)fireTexture.width, (float)fireTexture.height};
             Rectangle dest = {particles[i].position.x, particles[i].position.y, drawWidth, drawHeight};
@@ -232,10 +212,6 @@ void FireEffect::Deserialize(const std::string& data) {
         if (s.find("SpawnRate:") == 0) spawnRate = std::stoi(s.substr(10));
         else if (s.find("Wind:") == 0) wind = std::stof(s.substr(5));
         else if (s.find("PosX:") == 0) position.x = std::stof(s.substr(5));
-        else if (s.find("PosY:") == 0) position.y = std::stof(s.substr(5));
-        else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
-    }
-}se if (s.find("PosX:") == 0) position.x = std::stof(s.substr(5));
         else if (s.find("PosY:") == 0) position.y = std::stof(s.substr(5));
         else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
     }

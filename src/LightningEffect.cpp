@@ -359,3 +359,7 @@ void LightningEffect::SubdivideBranch(std::vector<LightningSegment>& outSegments
     SubdivideBranch(outSegments, start, mid, generations - 1, offsetAmount * 0.55f, nextThickness);
     SubdivideBranch(outSegments, mid, end, generations - 1, offsetAmount * 0.50f, nextThickness);
 }
+
+void LightningEffect::Reset() {
+    
+}

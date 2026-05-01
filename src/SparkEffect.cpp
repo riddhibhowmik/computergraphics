@@ -25,10 +25,7 @@ void SparkEffect::Reset() {
 
 void SparkEffect::Update(float dt) {
     int spawned = 0;
-<<<<<<< Updated upstream
-    float uiWidth = GetScreenWidth() - 380.0f;
-    float uiHeight = GetScreenHeight() - 200.0f;
-    Vector2 emitterPos = {uiWidth / 2.0f, uiHeight - 100.0f};
+    Vector2 emitterPos = position;
 
     float spawns = spawnRate * 60.0f;
     spawnAccumulator += spawns * dt;
@@ -41,14 +38,8 @@ void SparkEffect::Update(float dt) {
                 break;
             }
 
-=======
-    Vector2 emitterPos = position;
-
-    for (int i = 0; i < max; i++) {
-        if (!particles[i].isActive) {
             if (GetRandomValue(0, 100) > GetFadeFactor() * 100.0f) continue;
             
->>>>>>> Stashed changes
             particles[i].isActive = true;
             particles[i].position.x = emitterPos.x + GetRandomValue(-5, 5);
             particles[i].position.y = emitterPos.y + GetRandomValue(-5, 5);

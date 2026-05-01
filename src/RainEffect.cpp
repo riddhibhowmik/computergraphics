@@ -243,3 +243,7 @@ void RainEffect::Draw()
 
     EndBlendMode();
 }
+
+void RainEffect::Reset() {
+    
+}

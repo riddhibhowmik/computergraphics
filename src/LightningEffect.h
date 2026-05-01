@@ -68,6 +68,7 @@ public:
 
     void Update(float dt) override;
     void Draw() override;
+    void Reset() override;
 
     float GetGlobalFlashAlpha() const { return globalFlashAlpha; }
 

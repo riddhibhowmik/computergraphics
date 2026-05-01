@@ -7,15 +7,9 @@ NebulaEffect::NebulaEffect() : Effect("Nebula")
     // nebula particles are much bigger, so we need less
     max = 3000;
     // keep the spawn slow and steady
-<<<<<<< Updated upstream
-    spawnRate = 20;
-    drift = 50.0f;
-    spawnAccumulator = 0.0f;
-=======
     spawnRate = 2;
     drift = 15.0f;
     position = {1920.0f / 2.0f, 1080.0f / 2.0f - 100.0f};
->>>>>>> Stashed changes
 
     particles.resize(max);
     for (int i = 0; i < max; i++)
@@ -107,40 +101,22 @@ void NebulaEffect::Reset() {
 void NebulaEffect::Update(float dt)
 {
     int spawned = 0;
-<<<<<<< Updated upstream
-    float uiWidth = GetScreenWidth() - 380.0f; 
-    float uiHeight = GetScreenHeight() - 200.0f;
-    Vector2 emitterPos = {uiWidth / 2.0f, uiHeight / 2.0f};
-
-    float spawns = spawnRate * 60.0f;
-    spawnAccumulator += spawns * dt;
-    int toSpawn = (int)spawnAccumulator;
-    spawnAccumulator -= toSpawn;
-
-    float scale = 0.35f;
-=======
     Vector2 emitterPos = position;
->>>>>>> Stashed changes
 
     for (int i = 0; i < max; i++)
     {
         if (!particles[i].isActive)
         {
-<<<<<<< Updated upstream
-            if (spawned >= toSpawn)
-            {
-                break;
-            }
-
-=======
             if (GetRandomValue(0, 100) > GetFadeFactor() * 100.0f) continue;
             
->>>>>>> Stashed changes
             particles[i].isActive = true;
 
             // make them spawn in a widre area to make it look mroe natural
             float spawnRadius = 0.0f;
             bool isDust = GetRandomValue(1, 100) > 85;
+
+            // Default scale since it was missing
+            float scale = 0.35f;
 
             if (isDust) {
                 // if its dust, spawn it further out, so theyll never be in the core and swallow light
@@ -295,24 +271,20 @@ void NebulaEffect::Draw()
             float alphaMult = pow(sin(lifePercent * PI), 1.5f); 
             current.a = (unsigned char)(60.0f * alphaMult);
 
-<<<<<<< Updated upstream
-            float actualSize = fabs(particles[i].size);
-            float stretch = 1.2f + (sin(lifePercent * PI * 0.5f) * 0.3f);
-            float drawWidth = actualSize * stretch;
-            float drawHeight = actualSize * (1.0f / stretch);
-=======
             // fade in and out with a sine wave to make it look smooth
             float alphaPercent = sin(lifePercent * PI);
             // keep opacity low to make it layer better
             unsigned char a = (unsigned char)(alphaPercent * 60);
             
-            r = (unsigned char)(r * fade);
-            g = (unsigned char)(g * fade);
-            b = (unsigned char)(b * fade);
-            a = (unsigned char)(a * fade);
+            current.r = (unsigned char)(current.r * fade);
+            current.g = (unsigned char)(current.g * fade);
+            current.b = (unsigned char)(current.b * fade);
+            current.a = (unsigned char)(a * fade);
 
-            Color current = {r, g, b, a};
->>>>>>> Stashed changes
+            float actualSize = fabs(particles[i].size);
+            float stretch = 1.2f + (sin(lifePercent * PI * 0.5f) * 0.3f);
+            float drawWidth = actualSize * stretch;
+            float drawHeight = actualSize * (1.0f / stretch);
 
             Rectangle source = {0, 0, (float)cloudTexture.width, (float)cloudTexture.height};
             Rectangle dest = {particles[i].position.x, particles[i].position.y, drawWidth, drawHeight};
@@ -332,7 +304,7 @@ void NebulaEffect::Draw()
             Color current = {5, 5, 10, 255};
 
             float alphaMult = pow(sin(lifePercent * PI), 1.5f);
-            current.a = (unsigned char)(35.0f * alphaMult);
+            current.a = (unsigned char)(35.0f * alphaMult * fade);
 
             float actualSize = fabs(particles[i].size);
             float stretch = 1.2f + (sin(lifePercent * PI * 0.5f) * 0.3f);
@@ -374,7 +346,5 @@ void NebulaEffect::Deserialize(const std::string& data) {
         else if (s.find("PosX:") == 0) position.x = std::stof(s.substr(5));
         else if (s.find("PosY:") == 0) position.y = std::stof(s.substr(5));
         else if (s.find("Active:") == 0) isActive = std::stoi(s.substr(7));
-    }
-}ubstr(7));
     }
 }
