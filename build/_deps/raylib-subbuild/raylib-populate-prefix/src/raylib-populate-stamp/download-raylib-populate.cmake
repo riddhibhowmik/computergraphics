@@ -1,5 +1,5 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
-# file Copyright.txt or https://cmake.org/licensing for details.
+# file LICENSE.rst or https://cmake.org/licensing for details.
 
 cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(VERBOSE "verifying file...
-       file='C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'")
+       file='C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'")
 
-  file("" "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" actual_value)
+  file("" "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(VERBOSE " hash of
-    C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz
+    C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz
   does not match expected value
     expected: ''
       actual: '${actual_value}'")
@@ -71,32 +71,32 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if(EXISTS "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
+if(EXISTS "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(VERBOSE "File already exists and hash match (skip download):
-  file='C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
+  file='C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
   =''"
       )
       return()
     else()
       message(VERBOSE "File already exists but hash mismatch. Removing...")
-      file(REMOVE "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
+      file(REMOVE "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
     endif()
   else()
     message(VERBOSE "File already exists but no hash specified (use URL_HASH):
-  file='C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
+  file='C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
+    file(REMOVE "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(VERBOSE "Downloading...
-   dst='C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
+   dst='C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
    timeout='none'
    inactivity timeout='none'"
 )
@@ -119,7 +119,7 @@ foreach(i RANGE ${retry_number})
 
       file(
         DOWNLOAD
-        "${url}" "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz"
+        "${url}" "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz"
         SHOW_PROGRESS
         # no TIMEOUT
         # no INACTIVITY_TIMEOUT
@@ -136,7 +136,7 @@ foreach(i RANGE ${retry_number})
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
           message(VERBOSE "Hash mismatch, removing...")
-          file(REMOVE "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
+          file(REMOVE "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz")
         else()
           message(VERBOSE "Downloading... done")
           return()

@@ -1,12 +1,12 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
-# file Copyright.txt or https://cmake.org/licensing for details.
+# file LICENSE.rst or https://cmake.org/licensing for details.
 
 cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" ABSOLUTE)
-get_filename_component(directory "C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" ABSOLUTE)
+get_filename_component(directory "C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-src" ABSOLUTE)
 
 message(VERBOSE "extracting...
      src='${filename}'
@@ -28,8 +28,8 @@ file(MAKE_DIRECTORY "${ut_dir}")
 
 # Extract it:
 #
-message(VERBOSE "extracting... [tar xfz]")
-execute_process(COMMAND ${CMAKE_COMMAND} -E tar xfz ${filename} --touch
+message(VERBOSE "extracting... [tar xf]")
+execute_process(COMMAND ${CMAKE_COMMAND} -E tar xf ${filename} --touch
   WORKING_DIRECTORY ${ut_dir}
   RESULT_VARIABLE rv
 )

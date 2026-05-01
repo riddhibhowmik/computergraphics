@@ -1,14 +1,14 @@
 # Target labels
  raylib-populate
 # Source files and their labels
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/24f0cd216b2ee31c1cec15552a9e9c12/raylib-populate.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/ca7a3f625f7e03993b19c13c8b480ebd/raylib-populate-complete.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-build.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-configure.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-download.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-install.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-mkdir.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-patch.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-test.rule
-C:/Users/Harry/Desktop/school/4-2/cs4361/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/4e2b570354a7e38d88a00604d6d2eacb/raylib-populate-update.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test.rule
+C:/Users/bandr/Downloads/computergraphics/build/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update.rule
